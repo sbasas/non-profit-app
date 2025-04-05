@@ -2,13 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
+  static final _baseTextTheme = ThemeData.light().textTheme;
+  static final _baseDarkTextTheme = ThemeData.dark().textTheme;
+
+  static TextTheme _getTextTheme(TextTheme baseTheme) {
+    try {
+      return GoogleFonts.poppinsTextTheme(baseTheme);
+    } catch (e) {
+      debugPrint('Failed to load Google Fonts: $e');
+      return baseTheme;
+    }
+  }
+
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(
       seedColor: Colors.blue,
       brightness: Brightness.light,
     ),
-    textTheme: GoogleFonts.poppinsTextTheme(),
+    textTheme: _getTextTheme(_baseTextTheme),
     appBarTheme: const AppBarTheme(
       centerTitle: true,
       elevation: 0,
@@ -63,7 +75,7 @@ class AppTheme {
       seedColor: Colors.blue,
       brightness: Brightness.dark,
     ),
-    textTheme: GoogleFonts.poppinsTextTheme(ThemeData.dark().textTheme),
+    textTheme: _getTextTheme(_baseDarkTextTheme),
     appBarTheme: const AppBarTheme(
       centerTitle: true,
       elevation: 0,

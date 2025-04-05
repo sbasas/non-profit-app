@@ -81,6 +81,25 @@ class _AppWrapper extends StatelessWidget {
       ],
       locale: context.watch<LanguageProvider>().locale,
       routerConfig: AppRouter.router,
+      builder: (context, child) {
+        ErrorWidget.builder = (FlutterErrorDetails details) {
+          debugPrint('App Error: ${details.exception}');
+          debugPrint('Stack Trace: ${details.stack}');
+          return Container(
+            color: Colors.transparent,
+            child: Center(
+              child: Text(
+                'Something went wrong',
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            ),
+          );
+        };
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+          child: child ?? const SizedBox(),
+        );
+      },
     );
   }
 } 
