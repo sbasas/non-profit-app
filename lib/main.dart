@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'core/services/analytics_service.dart';
@@ -11,23 +10,21 @@ import 'core/theme/app_theme.dart';
 import 'features/navigation/app_router.dart';
 import 'features/settings/providers/theme_provider.dart';
 import 'features/settings/providers/language_provider.dart';
-import 'features/settings/settings_screen.dart';
-import 'features/home/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   // Initialize services
   final analyticsService = AnalyticsService();
   final connectivityService = ConnectivityService();
   final secureStorageService = SecureStorageService();
-  
+
   // Set preferred orientations
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  
+
   // Set system UI overlay style
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
@@ -35,7 +32,7 @@ void main() async {
       statusBarIconBrightness: Brightness.dark,
     ),
   );
-  
+
   runApp(
     MultiProvider(
       providers: [
@@ -102,4 +99,4 @@ class _AppWrapper extends StatelessWidget {
       },
     );
   }
-} 
+}
